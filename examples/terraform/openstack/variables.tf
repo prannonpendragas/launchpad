@@ -4,12 +4,17 @@ variable "cluster_name" {
 
 variable "docker_enterprise_version" {
   type = string
-  default = "3.3.1"
+  default = "3.5.5"
 }
 
 variable "docker_engine_version" {
   type = string
-  default = "19.03.8"
+  default = "20.10.7"
+}
+
+variable "docker_registry_version" {
+  type = string
+  default = "2.9.9"
 }
 
 variable "docker_image_repo" {
@@ -36,13 +41,13 @@ variable dns_ip_list {
   default = []
 }
 
-variable "docker_default_address_pool" {
-}
-
 variable "ssh_key_path" {
   default = "./ssh_keys/my_rsa"
 }
 
+variable "user" {
+  default = "ubuntu"
+}
 variable "external_network_name" {}
 variable "external_network_id" {}
 
@@ -54,12 +59,11 @@ variable "admin_password" {
   default = "mke-ftw!!!"
 }
 
-variable "docker_int_net" {
-  type = string
-  description = "This is the internal docker network CIDR"
+variable "master_count" {
+  default = 1
 }
 
-variable "master_count" {
+variable "msr_count" {
   default = 1
 }
 
@@ -71,11 +75,19 @@ variable "master_image_name" {
   default = "ubuntu18.04"
 }
 
+variable "msr_image_name" {
+  default = "ubuntu18.04"
+}
+
 variable "worker_image_name" {
   default = "ubuntu18.04"
 }
 
 variable "master_flavor" {
+  default = "m5.large"
+}
+
+variable "msr_flavor" {
   default = "m5.large"
 }
 

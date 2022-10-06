@@ -1,3 +1,13 @@
+terraform {
+  required_version        = ">= 0.14.0"
+  required_providers {
+    openstack = {
+      source              = "terraform-provider-openstack/openstack"
+      version             = "~> 1.35.0"
+    }
+  }
+}
+
 resource "openstack_compute_instance_v2" "docker-master" {
   count              = var.master_count
  
@@ -14,7 +24,7 @@ resource "openstack_compute_instance_v2" "docker-master" {
 # Use full qualified private DNS name for the host name.  Kube wants it this way.
 HOSTNAME=$(curl http://169.254.169.254/latest/meta-data/hostname)
 echo $HOSTNAME > /etc/hostname
-sed -i "s|\(127\.0\..\.. *\)localhost|\1$HOSTNAME|" /etc/hosts
+sed -i "s|\(127\.0\..\.. *\)localhost|\1$HOSTNAME localhost|" /etc/hosts
 hostname $HOSTNAME
 EOF
 

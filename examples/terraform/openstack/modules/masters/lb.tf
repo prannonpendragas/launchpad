@@ -1,5 +1,5 @@
 resource "openstack_lb_loadbalancer_v2" "lb_mke" {
-  name = "${var.cluster_name}-mke"
+  name = "${var.cluster_name}-mke-lb"
   vip_subnet_id = var.internal_subnet_id
 }
 
@@ -60,7 +60,15 @@ resource "openstack_lb_member_v2" "lb_member_mke2" {
 # TODO: Change to http check (GA)
 resource "openstack_lb_monitor_v2" "mke" {
   pool_id     = openstack_lb_pool_v2.lb_pool_mke.id
-  type        = "PING"
+  type        = "TCP"
+  delay       = 20
+  timeout     = 10
+  max_retries = 3
+}
+
+resource "openstack_lb_monitor_v2" "mke2" {
+  pool_id     = openstack_lb_pool_v2.lb_pool_mke2.id
+  type        = "TCP"
   delay       = 20
   timeout     = 10
   max_retries = 3

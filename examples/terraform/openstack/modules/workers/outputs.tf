@@ -1,7 +1,3 @@
-output "lb_ip" {
-  value = openstack_networking_floatingip_v2.worker_lb_vip.address
-}
-
 output "public_ips" {
   value = openstack_networking_floatingip_v2.worker.*.address
 }
